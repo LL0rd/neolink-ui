@@ -1,0 +1,12 @@
+services:
+  neolink-ui:
+    build: .
+    container_name: neolink-ui
+    network_mode: host
+    environment:
+      - NEOLINK_UI_PASSWORD=${NEOLINK_UI_PASSWORD:-}
+      - NEOLINK_CONFIG_PATH=/etc/neolink.toml
+      - NEOLINK_MODE=${NEOLINK_MODE:-rtsp}
+    volumes:
+      - ./config/neolink.toml:/etc/neolink.toml
+    restart: unless-stopped
