@@ -34,12 +34,12 @@ docker run -d \
   --network host \
   -v /path/to/your/neolink.toml:/etc/neolink.toml \
   -e NEOLINK_UI_PASSWORD=changeme \
-  neolink-ui
+  ll0rd/neolink-ui
 ```
 
 Host networking is recommended so neolink can discover cameras on your LAN and expose the RTSP port directly.
 
-The web UI will be available at `http://your-ip:3000`.
+The web UI will be available at `http://your-ip:9080`.
 
 Once you've added a camera, the RTSP streams are available at:
 
@@ -53,7 +53,7 @@ rtsp://your-ip:8554/CameraName/sub         # sub stream (lower resolution)
 ```yaml
 services:
   neolink-ui:
-    build: .
+    image: ll0rd/neolink-ui:latest
     container_name: neolink-ui
     network_mode: host
     environment:
@@ -77,7 +77,7 @@ An Unraid Community Applications template is included (`neolink-ui.xml`). Import
 | `NEOLINK_CONFIG_PATH` | `/etc/neolink.toml` | Path to the neolink TOML config file |
 | `NEOLINK_BINARY_PATH` | `/usr/local/bin/neolink` | Path to the neolink binary |
 | `NEOLINK_MODE` | `rtsp` | Neolink operating mode (`rtsp` or `mqtt`) |
-| `PORT` | `3000` | Web UI port |
+| `PORT` | `9080` | Web UI port |
 
 ## Development
 
@@ -97,7 +97,7 @@ NEOLINK_BINARY_PATH=/usr/local/bin/neolink \
 npm run dev
 ```
 
-The app starts at `http://localhost:3000`. Without the neolink binary, everything works except actually running neolink — you can still use the config editor.
+The app starts at `http://localhost:9080`. Without the neolink binary, everything works except actually running neolink — you can still use the config editor.
 
 ## Building the Docker image
 

@@ -1,6 +1,6 @@
 services:
   neolink-ui:
-    build: .
+    image: ll0rd/neolink-ui:latest
     container_name: neolink-ui
     network_mode: host
     environment:

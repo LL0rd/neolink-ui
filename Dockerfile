@@ -47,8 +47,8 @@ ENV NEOLINK_CONFIG_PATH=/etc/neolink.toml
 ENV NEOLINK_BINARY_PATH=/usr/local/bin/neolink
 ENV NEOLINK_MODE=rtsp
 ENV HOST=0.0.0.0
-ENV PORT=3000
+ENV PORT=9080
 
-EXPOSE 3000 8554
+EXPOSE 9080 8554
 
 CMD ["node", "/app/.output/server/index.mjs"]

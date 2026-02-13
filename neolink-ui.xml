@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Container version="2">
   <Name>neolink-ui</Name>
-  <Repository>neolink-ui</Repository>
+  <Repository>ll0rd/neolink-ui</Repository>
   <Registry>https://hub.docker.com/</Registry>
   <Network>host</Network>
   <Shell>bash</Shell>
@@ -9,12 +9,12 @@
   <Support/>
   <Overview>Web UI for managing Neolink - a Reolink camera bridge that converts Baichuan protocol to RTSP/MQTT. Configure cameras, manage streams, and control the neolink process through a browser interface.</Overview>
   <Category>HomeAutomation</Category>
-  <WebUI>http://[IP]:[PORT:3000]</WebUI>
+  <WebUI>http://[IP]:[PORT:9080]</WebUI>
   <Icon>https://raw.githubusercontent.com/QuantumEntangledAndy/neolink/master/logo.png</Icon>
   <ExtraParams/>
   <DateInstalled/>
   <Description>Neolink UI provides a web-based management interface for the neolink camera bridge. Features include camera configuration, RTSP user management, MQTT setup, and process control.</Description>
-  <Config Name="Web UI Port" Target="3000" Default="3000" Mode="tcp" Description="Port for the web interface" Type="Port" Display="always" Required="true" Mask="false">3000</Config>
+  <Config Name="Web UI Port" Target="9080" Default="9080" Mode="tcp" Description="Port for the web interface" Type="Port" Display="always" Required="true" Mask="false">9080</Config>
   <Config Name="RTSP Port" Target="8554" Default="8554" Mode="tcp" Description="Port for RTSP streams" Type="Port" Display="always" Required="true" Mask="false">8554</Config>
   <Config Name="Config File" Target="/etc/neolink.toml" Default="/mnt/user/appdata/neolink-ui/neolink.toml" Mode="rw" Description="Path to neolink TOML configuration file" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/neolink-ui/neolink.toml</Config>
   <Config Name="UI Password" Target="NEOLINK_UI_PASSWORD" Default="" Description="Password for the web UI (leave empty to disable authentication)" Type="Variable" Display="always" Required="false" Mask="true"/>
