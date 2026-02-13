@@ -8,6 +8,12 @@ Instead of hand-editing TOML files and managing the neolink process from the ter
 ![Vuetify](https://img.shields.io/badge/Vuetify-3-1867C0?logo=vuetify)
 ![Docker](https://img.shields.io/badge/Docker-ready-2496ED?logo=docker)
 
+## Screenshots
+
+![Dashboard](screenshots/dashboard.png)
+
+![Camera Edit](screenshots/camera-edit.png)
+
 ## What it does
 
 - **Camera management** — add, edit, delete cameras through a form instead of editing TOML by hand
