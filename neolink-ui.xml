@@ -16,7 +16,7 @@
   <Description>Neolink UI provides a web-based management interface for the neolink camera bridge. Features include camera configuration, RTSP user management, MQTT setup, and process control.</Description>
   <Config Name="Web UI Port" Target="9080" Default="9080" Mode="tcp" Description="Port for the web interface" Type="Port" Display="always" Required="true" Mask="false">9080</Config>
   <Config Name="RTSP Port" Target="8554" Default="8554" Mode="tcp" Description="Port for RTSP streams" Type="Port" Display="always" Required="true" Mask="false">8554</Config>
-  <Config Name="Config File" Target="/etc/neolink.toml" Default="/mnt/user/appdata/neolink-ui/neolink.toml" Mode="rw" Description="Path to neolink TOML configuration file" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/neolink-ui/neolink.toml</Config>
+  <Config Name="Config Directory" Target="/config" Default="/mnt/user/appdata/neolink-ui" Mode="rw" Description="Directory containing neolink.toml configuration file" Type="Path" Display="always" Required="true" Mask="false">/mnt/user/appdata/neolink-ui</Config>
   <Config Name="UI Password" Target="NEOLINK_UI_PASSWORD" Default="" Description="Password for the web UI (leave empty to disable authentication)" Type="Variable" Display="always" Required="false" Mask="true"/>
   <Config Name="Neolink Mode" Target="NEOLINK_MODE" Default="rtsp" Description="Neolink operating mode: rtsp or mqtt" Type="Variable" Display="always" Required="false" Mask="false">rtsp</Config>
 </Container>

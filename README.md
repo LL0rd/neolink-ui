@@ -32,7 +32,7 @@ The easiest way to run it:
 docker run -d \
   --name neolink-ui \
   --network host \
-  -v /path/to/your/neolink.toml:/etc/neolink.toml \
+  -v /path/to/your/config:/config \
   -e NEOLINK_UI_PASSWORD=changeme \
   ll0rd/neolink-ui
 ```
@@ -58,10 +58,9 @@ services:
     network_mode: host
     environment:
       - NEOLINK_UI_PASSWORD=changeme
-      - NEOLINK_CONFIG_PATH=/etc/neolink.toml
       - NEOLINK_MODE=rtsp
     volumes:
-      - ./config/neolink.toml:/etc/neolink.toml
+      - ./config:/config
     restart: unless-stopped
 ```
 
@@ -74,7 +73,7 @@ An Unraid Community Applications template is included (`neolink-ui.xml`). Import
 | Variable | Default | Description |
 |---|---|---|
 | `NEOLINK_UI_PASSWORD` | *(empty)* | Password for the web UI. Leave empty to disable authentication. |
-| `NEOLINK_CONFIG_PATH` | `/etc/neolink.toml` | Path to the neolink TOML config file |
+| `NEOLINK_CONFIG_PATH` | `/config/neolink.toml` | Path to the neolink TOML config file |
 | `NEOLINK_BINARY_PATH` | `/usr/local/bin/neolink` | Path to the neolink binary |
 | `NEOLINK_MODE` | `rtsp` | Neolink operating mode (`rtsp` or `mqtt`) |
 | `PORT` | `9080` | Web UI port |

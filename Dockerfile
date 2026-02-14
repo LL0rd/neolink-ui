@@ -38,12 +38,12 @@ COPY --from=neolink /usr/local/bin/neolink /usr/local/bin/neolink
 COPY --from=builder /app/.output /app/.output
 
 # Create default config directory
-RUN mkdir -p /etc && touch /etc/neolink.toml
+RUN mkdir -p /config && touch /config/neolink.toml
 
 # Environment variables
 ENV NODE_ENV=production
 ENV NEOLINK_UI_PASSWORD=
-ENV NEOLINK_CONFIG_PATH=/etc/neolink.toml
+ENV NEOLINK_CONFIG_PATH=/config/neolink.toml
 ENV NEOLINK_BINARY_PATH=/usr/local/bin/neolink
 ENV NEOLINK_MODE=rtsp
 ENV HOST=0.0.0.0

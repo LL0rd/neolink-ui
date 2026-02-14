@@ -5,8 +5,7 @@ services:
     network_mode: host
     environment:
       - NEOLINK_UI_PASSWORD=${NEOLINK_UI_PASSWORD:-}
-      - NEOLINK_CONFIG_PATH=/etc/neolink.toml
       - NEOLINK_MODE=${NEOLINK_MODE:-rtsp}
     volumes:
-      - ./config/neolink.toml:/etc/neolink.toml
+      - ./config:/config
     restart: unless-stopped
