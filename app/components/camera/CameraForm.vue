@@ -270,7 +270,7 @@ const emit = defineEmits<{
 const configStore = useConfigStore()
 const openPanels = ref(['connection'])
 
-const host = computed(() => configStore.globalSettings.bind || 'localhost')
+const host = computed(() => configStore.rtspHost)
 const port = computed(() => configStore.globalSettings.bind_port || 8554)
 
 const formData = reactive<NeolinkCamera>({

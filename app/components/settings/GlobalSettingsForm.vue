@@ -4,6 +4,16 @@
     <v-card-text>
       <v-form @submit.prevent="handleSave">
         <v-row>
+          <v-col cols="12">
+            <v-text-field
+              v-model="form.rtsp_host"
+              label="Stream URL Host"
+              :placeholder="detectedIp"
+              :hint="`Hostname or IP shown in stream URLs. Auto-detected: ${detectedIp}`"
+              persistent-hint
+              clearable
+            />
+          </v-col>
           <v-col cols="12" md="6">
             <v-text-field
               v-model="form.bind"
@@ -55,8 +65,10 @@
 const configStore = useConfigStore()
 const { success, error } = useNotification()
 const saving = ref(false)
+const detectedIp = computed(() => configStore.detectedIp)
 
 const form = reactive({
+  rtsp_host: '',
   bind: '',
   bind_port: undefined as number | undefined,
   certificate: '',
@@ -65,6 +77,7 @@ const form = reactive({
 
 onMounted(() => {
   const g = configStore.globalSettings
+  form.rtsp_host = configStore.uiSettings.rtsp_host || ''
   form.bind = g.bind || ''
   form.bind_port = g.bind_port
   form.certificate = g.certificate || ''
@@ -79,7 +92,11 @@ async function handleSave() {
     if (form.bind_port) settings.bind_port = form.bind_port
     if (form.certificate) settings.certificate = form.certificate
     if (form.tls_client_auth) settings.tls_client_auth = form.tls_client_auth
-    await configStore.updateGlobalSettings(settings)
+
+    await Promise.all([
+      configStore.updateGlobalSettings(settings),
+      configStore.updateUiSettings({ rtsp_host: form.rtsp_host || undefined }),
+    ])
     success('Global settings saved')
   } catch (e: any) {
     error(e.data?.message || 'Failed to save settings')

@@ -1,16 +1,26 @@
 import type { NeolinkConfig, NeolinkCamera, NeolinkUser, NeolinkMqtt } from '../../shared/types/config'
+import type { UiSettings } from '../../shared/types/ui-settings'
 
 export const useConfigStore = defineStore('config', () => {
   const config = ref<NeolinkConfig>({ cameras: [], users: [] })
   const loading = ref(false)
   const error = ref<string | null>(null)
+  const rtspHost = ref('localhost')
+  const detectedIp = ref('localhost')
+  const uiSettings = ref<UiSettings>({})
 
   async function fetchConfig() {
     loading.value = true
     error.value = null
     try {
-      const res = await $fetch<{ success: boolean; data: NeolinkConfig }>('/api/config')
-      config.value = res.data ?? { cameras: [], users: [] }
+      const [configRes, uiRes] = await Promise.all([
+        $fetch<{ success: boolean; data: NeolinkConfig }>('/api/config'),
+        $fetch<{ success: boolean; data: UiSettings & { detected_ip: string } }>('/api/config/ui-settings'),
+      ])
+      config.value = configRes.data ?? { cameras: [], users: [] }
+      uiSettings.value = uiRes.data ?? {}
+      detectedIp.value = uiRes.data?.detected_ip ?? 'localhost'
+      rtspHost.value = uiRes.data?.rtsp_host || uiRes.data?.detected_ip || 'localhost'
     } catch (e: any) {
       error.value = e.data?.message || 'Failed to load config'
     } finally {
@@ -83,6 +93,18 @@ export const useConfigStore = defineStore('config', () => {
     await fetchConfig()
   }
 
+  async function updateUiSettings(settings: UiSettings) {
+    await $fetch('/api/config/ui-settings', {
+      method: 'PUT',
+      body: settings,
+    })
+    // Re-fetch to update rtspHost
+    const res = await $fetch<{ success: boolean; data: UiSettings & { detected_ip: string } }>('/api/config/ui-settings')
+    uiSettings.value = res.data ?? {}
+    detectedIp.value = res.data?.detected_ip ?? 'localhost'
+    rtspHost.value = res.data?.rtsp_host || res.data?.detected_ip || 'localhost'
+  }
+
   const cameras = computed(() => config.value?.cameras ?? [])
   const users = computed(() => config.value?.users ?? [])
   const mqtt = computed(() => config.value?.mqtt ?? {})
@@ -101,6 +123,9 @@ export const useConfigStore = defineStore('config', () => {
     users,
     mqtt,
     globalSettings,
+    rtspHost,
+    detectedIp,
+    uiSettings,
     fetchConfig,
     fetchCameras,
     getCamera,
@@ -110,5 +135,6 @@ export const useConfigStore = defineStore('config', () => {
     updateGlobalSettings,
     updateMqttSettings,
     updateUsers,
+    updateUiSettings,
   }
 })

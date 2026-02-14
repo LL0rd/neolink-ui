@@ -60,6 +60,6 @@ defineProps<{
 }>()
 
 const configStore = useConfigStore()
-const host = computed(() => configStore.globalSettings.bind || 'localhost')
+const host = computed(() => configStore.rtspHost)
 const port = computed(() => configStore.globalSettings.bind_port || 8554)
 </script>
